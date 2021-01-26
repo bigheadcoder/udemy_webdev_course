@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ajax_bitcoin_price</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		span {
+  color: green;
+}
+	</style>
+</head>
+<body>
+<h1>Bitcoin Current Price is: <span id="price"></span></h1>
+
+<button id="btn">Refresh Data</button>
+<script type="text/javascript">
+	var bnt=document.querySelector("#btn");
+	var price=document.querySelector("#price");
+	//listen for click
+	btn.addEventListener("click",function(){
+		//make request
+		var XHR=new XMLHttpRequest();
+	XHR.onreadystatechange=function(){
+		if (XHR.readyState==4 && XHR.status==200){
+			  var data=JSON.parse(XHR.responseText).bpi.USD.rate;
+			  var code=JSON.parse(XHR.responseText).bpi.USD.code;
+			price.innerHTML=data+" "+code;
+			
+
+		}
+	};
+	XHR.open("GET","https://api.coindesk.com/v1/bpi/currentprice/CNY.json");
+	XHR.send();
+	});
+</script>
+</body>
+</html>
